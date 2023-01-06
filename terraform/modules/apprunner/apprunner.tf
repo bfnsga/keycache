@@ -56,6 +56,9 @@ resource "aws_apprunner_service" "example" {
   service_name = "example"
 
   source_configuration {
+    authentication_configuration {
+      access_role_arn = aws_iam_role.apprunner_role.arn
+    }
     image_repository {
       image_configuration {
         port = "8000"
@@ -64,9 +67,5 @@ resource "aws_apprunner_service" "example" {
       image_repository_type = "ECR"
     }
     auto_deployments_enabled = false
-  }
-
-  authentication_configuration {
-    access_role_arn = aws_iam_role.apprunner_role.arn
   }
 }
