@@ -3,7 +3,7 @@
 #################################
 resource "aws_iam_role" "codebuild-role" {
   name        = "CodeBuildBaseRole"
-  description = "Allows CodeBuild to build and deploy Lambda functions."
+  description = "Allows CodeBuild to build Docker image and push to ECR Private Repository."
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -34,17 +34,16 @@ resource "aws_iam_policy" "codebuild-policy" {
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:GetBucketAcl",
-          "s3:GetBucketLocation",
           "codebuild:CreateReportGroup",
           "codebuild:CreateReport",
           "codebuild:UpdateReport",
           "codebuild:BatchPutTestCases",
           "codebuild:BatchPutCodeCoverages",
-          "lambda:*",
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:PutImage"
         ]
       }
     ]
