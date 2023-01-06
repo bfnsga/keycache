@@ -68,7 +68,7 @@ data "local_file" "buildspec" {
 }
 
 resource "aws_codebuild_project" "image" {
-  name          = "image-v1"
+  name          = "production_project"
   build_timeout = "15"
   service_role  = aws_iam_role.codebuild_role.arn
   concurrent_build_limit = "1"
