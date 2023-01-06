@@ -136,8 +136,8 @@ resource "aws_codebuild_webhook" "webhook" {
     }
 
     filter {
-      type    = "HEAD_REF"
-      pattern = "main"
+      type    = "FILE_PATH"
+      pattern = "api"
     }
   }
 }
