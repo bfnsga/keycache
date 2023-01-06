@@ -4,10 +4,7 @@
 resource "aws_ecr_repository" "production_repository" {
   name                 = "production_repository"
   image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
+  force_destroy = true
 }
 
 resource "aws_ecr_lifecycle_policy" "policy" {
