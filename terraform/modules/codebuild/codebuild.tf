@@ -57,6 +57,12 @@ resource "aws_iam_role_policy_attachment" "codebuild_role_policy" {
 
 ## CODEBUILD PROJECT
 #########################
+resource "aws_codebuild_source_credential" "credentials" {
+  auth_type   = "PERSONAL_ACCESS_TOKEN"
+  server_type = "GITHUB"
+  token       = var.github_credentials
+}
+
 data "local_file" "buildspec" {
   filename = "${path.module}/buildspec/ecr-image.yml"
 }
@@ -122,6 +128,11 @@ resource "aws_codebuild_webhook" "webhook" {
     filter {
       type    = "EVENT"
       pattern = "PUSH"
+    }
+
+    filter {
+      type    = "HEAD_REF"
+      pattern = "main"
     }
 
     filter {
