@@ -9,3 +9,7 @@ variable "aws_region" {
 variable "repository_name" {
     type = string
 }
+
+variable "github_credentials" {
+    type = string
+}

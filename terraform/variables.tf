@@ -5,3 +5,7 @@ variable "aws_region" {
 variable "aws_account_id" {
   type        = string
 }
+
+variable "github_credentials" {
+  type = string
+}
