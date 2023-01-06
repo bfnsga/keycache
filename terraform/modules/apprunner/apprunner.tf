@@ -60,13 +60,13 @@ resource "aws_apprunner_service" "example" {
       image_configuration {
         port = "8000"
       }
-      image_identifier      = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.repository_name}:latest"
+      image_identifier      = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.repository_name}:LATEST"
       image_repository_type = "ECR"
     }
     auto_deployments_enabled = false
   }
 
-  instance_configuration {
-    instance_role_arn = aws_iam_role.apprunner_role.arn
+  authentication_configuration {
+    access_role_arn = aws_iam_role.apprunner_role.arn
   }
 }
