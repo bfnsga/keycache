@@ -5,7 +5,3 @@ variable "aws_account_id" {
 variable "aws_region" {
     type = string
 }
-
-variable "repository_name" {
-    type = string
-}
