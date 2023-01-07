@@ -95,18 +95,10 @@ resource "aws_iam_role_policy_attachment" "apprunner-instance_role_policy" {
   policy_arn = aws_iam_policy.apprunner-instance_policy.arn
 }
 
-## Cloudwatch Log Group
-#########################
-resource "aws_cloudwatch_log_group" "apprunner" {
-  name = "/apprunner/production-service"
-  retention_in_days = 7
-}
-
 ## AppRunner Service
 #########################
 resource "aws_apprunner_service" "example" {
   service_name = "example"
-  log_group_name = aws_cloudwatch_log_group.apprunner.name
 
   source_configuration {
     authentication_configuration {
