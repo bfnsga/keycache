@@ -4,7 +4,7 @@
 resource "aws_ecr_repository" "production_repository" {
   name                 = "production_repository"
   image_tag_mutability = "MUTABLE"
-  force_destroy = true
+  force_delete = true
 }
 
 resource "aws_ecr_lifecycle_policy" "policy" {
