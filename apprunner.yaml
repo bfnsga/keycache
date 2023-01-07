@@ -3,7 +3,6 @@ runtime: python3
 build:
   commands:
     build:
-      - cd api
       - pip install -r ./api/requirements.txt
 run:
   runtime-version: 3.8.5
