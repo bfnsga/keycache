@@ -2,9 +2,10 @@ version: 1.0
 runtime: python3
 build:
   commands:
-    build:
+    pre-build:
       - cd api
+    build:
       - pip install -r requirements.txt
 run:
-  runtime-version: 3.10.6
+  runtime-version: 3.8.5
   command: uvicorn main:app --host 0.0.0.0 -port 8080
