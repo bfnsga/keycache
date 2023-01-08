@@ -7,12 +7,4 @@ resource "aws_dynamodb_table" "example" {
     name = "TestTableHashKey"
     type = "S"
   }
-
-  replica {
-    region_name = "us-east-2"
-  }
-
-  replica {
-    region_name = "us-west-2"
-  }
 }

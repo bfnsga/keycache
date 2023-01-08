@@ -90,7 +90,7 @@ resource "aws_api_gateway_integration" "example" {
 {
   "TableName": "example",
   "Item": {
-    "id": {
+    "TestTableHashKey": {
       "S": "$context.requestId"
     },
     "name": {
