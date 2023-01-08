@@ -108,6 +108,10 @@ resource "aws_api_gateway_method_response" "example" {
   resource_id = aws_api_gateway_resource.example.id
   http_method = aws_api_gateway_method.example.http_method
   status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Content-Type" = true
+  }
 }
 
 # Create an integration response
@@ -116,6 +120,14 @@ resource "aws_api_gateway_integration_response" "example" {
   resource_id = aws_api_gateway_resource.example.id
   http_method = aws_api_gateway_integration.example.http_method
   status_code = aws_api_gateway_method_response.example.status_code
+
+  response_parameters = {
+    "method.response.header.Content-Type" = "'application/json'"
+  }
+
+  response_templates = {
+    "application/json" = "{\"message\": \"Item added to DynamoDB table\"}"
+  }
 }
 
 resource "aws_api_gateway_deployment" "example" {
