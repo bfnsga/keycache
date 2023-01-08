@@ -91,7 +91,7 @@ resource "aws_api_gateway_integration" "example" {
   "TableName": "example",
   "Item": {
     "id": {
-      "S": "${uuid()}"
+      "S": "$context.requestId"
     },
     "name": {
       "S": "testing"
