@@ -87,14 +87,24 @@ resource "aws_api_gateway_integration" "example" {
 
   request_templates = {
     "application/json" = <<EOF
+#set($hello = $util.escapeJavaScript($input.json('$')))
 {
   "TableName": "example",
   "Item": {
     "TestTableHashKey": {
       "S": "$context.requestId"
     },
+    #foreach($key in $hello.keySet())
+    "$key": {
+        "S": "$hello.get($key)"
+    }
+      #if( $foreach.hasNext ), #end
+   #end
     "name": {
-      "S": "testing"
+      "S": "$hello"
+    },
+    "created_at": {
+        "S": "$context.requestTimeEpoch"
     }
   }
 }
@@ -143,7 +153,24 @@ resource "aws_api_gateway_deployment" "example" {
 }
 
 resource "aws_api_gateway_stage" "example" {
+  depends_on = [aws_cloudwatch_log_group.example]
+
   deployment_id = aws_api_gateway_deployment.example.id
   rest_api_id   = aws_api_gateway_rest_api.example.id
   stage_name    = "example"
+}
+
+resource "aws_api_gateway_method_settings" "path_specific" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  stage_name  = aws_api_gateway_stage.example.stage_name
+  method_path = "*/*"
+
+  settings {
+    logging_level   = "INFO"
+  }
+}
+
+resource "aws_cloudwatch_log_group" "example" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.example.id}/${aws_api_gateway_stage.example.stage_name}"
+  retention_in_days = 7
 }
