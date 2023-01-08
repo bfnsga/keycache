@@ -7,5 +7,5 @@ data = {
     }
 }
 
-resp = requests.post('https://6cba-73-250-164-216.ngrok.io', json=data)
+resp = requests.post('https://aqkqbkdats.us-east-2.awsapprunner.com', json=data)
 print(resp.text)
